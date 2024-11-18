@@ -1,6 +1,13 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +31,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         playerCar = new PlayerCar(350, 420);
         road = new Road();
         score = 0;
-        
+
         // Initialisation des ennemis
         enemyCars = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -51,10 +58,12 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
      */
     @Override
     public void run() {
+        sons(true);
         while (running) {
             if (!isGameOver) { // Ne met à jour que si le jeu n'est pas terminé
                 updateGame();
                 repaint();
+                //sons(false);
             }
             try {
                 Thread.sleep(16); // 60 FPS (approx.)
@@ -62,6 +71,30 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
                 e.printStackTrace();
             }
         }
+    }
+    public void sons(boolean start){
+        
+        try {
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(
+                    "./song/vitesse.wav"));
+            // Get a sound clip resource.
+            Clip clip = AudioSystem.getClip();
+            // Open audio clip and load samples from the audio input stream.
+            clip.open(audioIn);
+            clip.setFramePosition(0); 
+            clip.start();
+            clip.loop(ABORT);
+            if(!start){
+                clip.stop();
+            }
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+        
     }
     /**
      * Met a jours les données du jeux
@@ -121,6 +154,22 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             if (playerCar.getBounds().intersects(enemy.getBounds())) {
                 System.out.println("Collision! Game Over! \n score :" + score);
                 isGameOver = true; // Le jeu est terminé
+                try {
+                    AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(
+                            "./song/accident.wav"));
+                    // Get a sound clip resource.
+                    Clip clip = AudioSystem.getClip();
+                    // Open audio clip and load samples from the audio input stream.
+                    clip.open(audioIn);
+                    clip.setFramePosition(0); 
+                    clip.start();
+                } catch (UnsupportedAudioFileException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (LineUnavailableException e) {
+                    e.printStackTrace();
+                }
                 break;
             }
         }
