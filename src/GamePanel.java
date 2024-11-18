@@ -21,7 +21,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 
     // Initialise ou réinitialise le jeu
     public void initGame() {
-        playerCar = new PlayerCar(350, 500);
+        playerCar = new PlayerCar(350, 420);
         road = new Road();
         score = 0;
         
@@ -31,19 +31,24 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             int x = 100 + (int) (Math.random() * 600);
             int y = -100 * i;
             int speed = 5 + (int) (Math.random() * 5);
-            enemyCars.add(new EnemyCar(x, y, speed));
+            enemyCars.add(new EnemyCar(x, y, speed, i));
         }
 
         isGameOver = false;
         running = true;
     }
-
+    /**
+     * Lance le jeux
+     */
     public void startGame() {
         running = true;
         gameThread = new Thread(this);
         gameThread.start();
     }
 
+    /**
+     * Actualise le jeux
+     */
     @Override
     public void run() {
         while (running) {
@@ -58,10 +63,11 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             }
         }
     }
-
+    /**
+     * Met a jours les données du jeux
+     */
     private void updateGame() {
         road.update();
-        playerCar.update();
         score ++;
         // Mise à jour des ennemis
         for (EnemyCar enemy : enemyCars) {
@@ -72,6 +78,9 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         checkCollisions();
     }
 
+    /**
+     * Met a jour les different affichages du jeux
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -79,15 +88,19 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         road.draw(g);
         playerCar.draw(g);
 
+
         for (EnemyCar enemy : enemyCars) {
             enemy.draw(g);
         }
-
+        drawScore(g);
         if (isGameOver) {
             drawGameOver(g);
         }
     }
-
+    /**
+     * Affiche l'écran de Game over lors d'une colision avec un autre voiture
+     * @param g
+     */
     private void drawGameOver(Graphics g) {
         g.setColor(new Color(0, 0, 0, 150)); // Fond semi-transparent
         g.fillRect(0, 0, getWidth(), getHeight());
@@ -112,20 +125,18 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             }
         }
     }
-
+    /**
+     * Affiche le score en temps réel sur l'écran
+     * @param g 
+     */
     private void drawScore(Graphics g){
 
-        g.setColor(Color.RED);
+        g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.BOLD, 50));
-        g.drawString("Score : " + score, getWidth() / 2 - 150, getHeight() / 2 - 50);
+        g.drawString("Score : " + score, 10 , 50);
 
-        g.setFont(new Font("Arial", Font.PLAIN, 25));
-        g.drawString("Score : " + score, getWidth() / 2 - 100, getHeight() / 2 + 20);
-        
-        g.setFont(new Font("Arial", Font.PLAIN, 25));
-        g.drawString("Press R to Restart", getWidth() / 2 - 100, getHeight() / 2 + 80);
     }
-
+    
     @Override
     public void keyPressed(KeyEvent e) {
         if (!isGameOver) {
