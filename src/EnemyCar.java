@@ -10,6 +10,8 @@ public class EnemyCar {
     private int speedAcc = 0;
     private int id;
     private Image enemyCarImage;
+    String osName = System.getProperty("os.name").toLowerCase();
+    public String imgPath;
 
     /**
      * Definit les voiture enemy
@@ -46,8 +48,13 @@ public class EnemyCar {
      * @param g
      */
     public void draw(Graphics g) {
+        if (osName.contains("win")) {
+            imgPath = "Voiture-Vroum-Vroum\\img\\";
+        } else {
+            imgPath = "./img/";
+        }
         try {
-            enemyCarImage = ImageIO.read(new File("./img/voiture-mechant.png"));
+            enemyCarImage = ImageIO.read(new File(imgPath +"voiture-mechant.png"));
         } catch (IOException e) {
             e.printStackTrace();
         } 
