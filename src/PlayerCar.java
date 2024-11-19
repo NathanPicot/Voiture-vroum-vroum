@@ -57,7 +57,7 @@ public class PlayerCar {
             
         }
         try {
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("./song/tourne.wav"));
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(songPath + "/tourne.wav"));
             // Obtenir une ressource de clip audio
             Clip clipDrift = AudioSystem.getClip();
             // Ouvrir le clip audio et charger les échantillons à partir du flux audio
@@ -89,7 +89,7 @@ public class PlayerCar {
      */
     public void draw(Graphics g) {
         try {
-            playerCarImage = ImageIO.read(new File("./img/voiture-bleu-1.png"));
+            playerCarImage = ImageIO.read(new File(imgPath + "/voiture-bleu-1.png"));
         } catch (IOException e) {
             e.printStackTrace();
         } 
