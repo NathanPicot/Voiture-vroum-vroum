@@ -95,7 +95,7 @@ public class PlayerCar {
             
         }
         try {
-            playerCarImage = ImageIO.read(new File(imgPath + "voiture-bleu-1.png"));
+            playerCarImage = ImageIO.read(new File(imgPath + "formuleUN.png"));
         } catch (IOException e) {
             e.printStackTrace();
         } 
