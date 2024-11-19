@@ -88,6 +88,14 @@ public class PlayerCar {
      * @param g
      */
     public void draw(Graphics g) {
+        if (osName.contains("win")) {
+            songPath = "Voiture-Vroum-Vroum\\song\\";
+            imgPath =  "Voiture-Vroum-Vroum\\img\\";
+        } else {
+            songPath = "./song/";
+            imgPath = "./img/";
+            
+        }
         try {
             playerCarImage = ImageIO.read(new File(imgPath + "voiture-bleu-1.png"));
         } catch (IOException e) {
