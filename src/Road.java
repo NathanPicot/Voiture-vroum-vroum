@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class Road {
     private int[] linesY = {0, 200, 400, 600}; // Position des lignes blanches
-    private int speed = 10;
+    private int speed = 20;
 
     public void update() {
         for (int i = 0; i < linesY.length; i++) {
