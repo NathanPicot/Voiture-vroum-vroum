@@ -2,6 +2,11 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+// import javax.sound.sampled.AudioInputStream;
+// import javax.sound.sampled.AudioSystem;
+// import javax.sound.sampled.Clip;
+// import javax.sound.sampled.LineUnavailableException;
+// import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.sound.sampled.*;
 
 
@@ -13,6 +18,7 @@ public class PlayerCar {
     String osName = System.getProperty("os.name").toLowerCase();
     public String songPath;
     public String imgPath;
+    public Clip clipDrift;
 
     
     /**
@@ -54,11 +60,16 @@ public class PlayerCar {
         try {
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(songPath + "drift.wav"));
             // Obtenir une ressource de clip audio
-            Clip clipDrift = AudioSystem.getClip();
+            clipDrift = AudioSystem.getClip();
+            if (clipDrift.isOpen()){
+                clipDrift.close();
+            }
             // Ouvrir le clip audio et charger les échantillons à partir du flux audio
             clipDrift.open(audioIn);
             clipDrift.setFramePosition(0); // Rejoue depuis le début
+            
             clipDrift.start();
+            
     
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
