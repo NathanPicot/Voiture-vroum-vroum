@@ -47,16 +47,16 @@ public class PlayerCar {
         try {
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("./song/tourne.wav"));
             // Obtenir une ressource de clip audio
-            Clip clip = AudioSystem.getClip();
+            Clip clipDrift = AudioSystem.getClip();
             // Ouvrir le clip audio et charger les échantillons à partir du flux audio
-            clip.open(audioIn);
-            clip.setFramePosition(0); // Rejoue depuis le début
-            clip.start();
+            clipDrift.open(audioIn);
+            clipDrift.setFramePosition(0); // Rejoue depuis le début
+            clipDrift.start();
     
             // Configurer et démarrer un timer pour arrêter le son après 1 seconde
             javax.swing.Timer timer = new javax.swing.Timer(300, e -> {
-                clip.stop();
-                clip.close(); // Libère les ressources
+                clipDrift.stop();
+                clipDrift.close(); // Libère les ressources
             });
             timer.setRepeats(false); // Exécuter une seule fois
             timer.start(); // Démarrer le timer
