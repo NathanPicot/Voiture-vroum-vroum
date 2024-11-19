@@ -49,7 +49,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             int x = 100 + (int) (Math.random() * 600);
             int y = -100 * i;
             int speed = 5 + (int) (Math.random() * 5);
-            enemyCars.add(new EnemyCar(x, y, speed, i));
+            enemyCars.add(new EnemyCar(x, y, speed));
         }
 
         isGameOver = false;

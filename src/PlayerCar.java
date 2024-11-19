@@ -58,7 +58,7 @@ public class PlayerCar {
             
         }
         try {
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(songPath + "drift.wav"));
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(songPath + "tourneTest.wav"));
             // Obtenir une ressource de clip audio
             clipDrift = AudioSystem.getClip();
             if (clipDrift.isOpen()){

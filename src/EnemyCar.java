@@ -8,7 +8,6 @@ public class EnemyCar {
     private int x, y;
     private int speed;
     private int speedAcc = 0;
-    private int id;
     private Image enemyCarImage;
     String osName = System.getProperty("os.name").toLowerCase();
     public String imgPath;
@@ -20,11 +19,10 @@ public class EnemyCar {
      * @param speed
      * @param id
      */
-    public EnemyCar(int x, int y, int speed, int id) {
+    public EnemyCar(int x, int y, int speed) {
         this.x = x;
         this.y = y;
         this.speed = speed;
-        this.id = id;
     }
 
     /**
