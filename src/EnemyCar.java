@@ -37,7 +37,6 @@ public class EnemyCar {
         if (y > 600) { // Réapparaît en haut de l'écran
         	this.speedAcc += 1;
         	this.speed += this.speedAcc/10;
-        	System.out.println("Speed : " + this.speedAcc + " id : "+ id);
             y = -100;
             x = 10 + (int) (Math.random() * 700); // Nouvelle position horizontale aléatoire
         }
