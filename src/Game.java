@@ -10,7 +10,7 @@ public class Game {
         frame.setSize(800, 600); // Taille de la fenêtre
         frame.setResizable(false);
         frame.setVisible(true);
-
+        
         panel.startGame(); // Démarrage de la boucle du jeu
     }
 }
