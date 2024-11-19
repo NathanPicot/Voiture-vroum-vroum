@@ -15,7 +15,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     private Thread gameThread;
     private boolean running;
     private boolean isGameOver; // Indique si le jeu est terminé
-    private boolean isInitGame;
+    private boolean isInitGame; // Indique si le jeux vient de ce reinitialisé
     private PlayerCar playerCar;
     private Road road;
     private List<EnemyCar> enemyCars;
