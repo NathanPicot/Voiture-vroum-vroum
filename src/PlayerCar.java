@@ -15,6 +15,10 @@ public class PlayerCar {
     private int x, y; // Position de la voiture
     private int speed = 30; // Vitesse de déplacement
     private Image playerCarImage;
+    String osName = System.getProperty("os.name").toLowerCase();
+    public String songPath;
+    public String imgPath;
+
     
     /**
      * Definie notre voiture
@@ -44,6 +48,14 @@ public class PlayerCar {
     }
 
     public void drift() {
+        if (osName.contains("win")) {
+            songPath = "Voiture-Vroum-Vroum\\song\\";
+            imgPath =  "Voiture-Vroum-Vroum\\img\\";
+        } else {
+            songPath = "./song/";
+            imgPath = "./img/";
+            
+        }
         try {
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("./song/tourne.wav"));
             // Obtenir une ressource de clip audio
