@@ -15,6 +15,11 @@ public class PlayerCar {
     private int x, y; // Position de la voiture
     private int speed = 30; // Vitesse de déplacement
     private Image playerCarImage;
+    String osName = System.getProperty("os.name").toLowerCase();
+    public String songPath;
+    public String imgPath;
+    public Clip clipDrift;
+
     
     /**
      * Definie notre voiture
@@ -44,22 +49,27 @@ public class PlayerCar {
     }
 
     public void drift() {
+        if (osName.contains("win")) {
+            songPath = "Voiture-Vroum-Vroum\\song\\";
+            imgPath =  "Voiture-Vroum-Vroum\\img\\";
+        } else {
+            songPath = "./song/";
+            imgPath = "./img/";
+            
+        }
         try {
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("./song/tourne.wav"));
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(songPath + "tourneTest.wav"));
             // Obtenir une ressource de clip audio
-            Clip clipDrift = AudioSystem.getClip();
+            clipDrift = AudioSystem.getClip();
+            if (clipDrift.isOpen()){
+                clipDrift.close();
+            }
             // Ouvrir le clip audio et charger les échantillons à partir du flux audio
             clipDrift.open(audioIn);
             clipDrift.setFramePosition(0); // Rejoue depuis le début
+            
             clipDrift.start();
-    
-            // Configurer et démarrer un timer pour arrêter le son après 1 seconde
-            javax.swing.Timer timer = new javax.swing.Timer(300, e -> {
-                clipDrift.stop();
-                clipDrift.close(); // Libère les ressources
-            });
-            timer.setRepeats(false); // Exécuter une seule fois
-            timer.start(); // Démarrer le timer
+            
     
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
@@ -76,8 +86,16 @@ public class PlayerCar {
      * @param g
      */
     public void draw(Graphics g) {
+        if (osName.contains("win")) {
+            songPath = "Voiture-Vroum-Vroum\\song\\";
+            imgPath =  "Voiture-Vroum-Vroum\\img\\";
+        } else {
+            songPath = "./song/";
+            imgPath = "./img/";
+            
+        }
         try {
-            playerCarImage = ImageIO.read(new File("./img/voiture-bleu-1.png"));
+            playerCarImage = ImageIO.read(new File(imgPath + "voiture-bleu-1.png"));
         } catch (IOException e) {
             e.printStackTrace();
         } 

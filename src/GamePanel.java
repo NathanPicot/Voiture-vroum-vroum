@@ -15,21 +15,30 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     private Thread gameThread;
     private boolean running;
     private boolean isGameOver; // Indique si le jeu est terminé
-    private boolean isInitGame;
+    private boolean isInitGame; // Indique si le jeux vient de ce reinitialisé
     private PlayerCar playerCar;
     private Road road;
     private List<EnemyCar> enemyCars;
     private int score;
     public Clip clip;
+    public String songPath;
     public GamePanel() {
         this.setFocusable(true);
         this.addKeyListener(this);
 
         initGame(); // Initialisation du jeu
     }
+    String osName = System.getProperty("os.name").toLowerCase();
+    
+
 
     // Initialise ou réinitialise le jeu
     public void initGame() {
+        if (osName.contains("win")) {
+            songPath = "Voiture-Vroum-Vroum\\song\\";
+        } else {
+            songPath = "./song/";
+        }
         playerCar = new PlayerCar(350, 420);
         road = new Road();
         score = 0;
@@ -40,7 +49,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             int x = 100 + (int) (Math.random() * 600);
             int y = -100 * i;
             int speed = 5 + (int) (Math.random() * 5);
-            enemyCars.add(new EnemyCar(x, y, speed, i));
+            enemyCars.add(new EnemyCar(x, y, speed));
         }
 
         isGameOver = false;
@@ -63,7 +72,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     public void run() {
         try {
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(
-                    "./song/vitesse.wav"));
+                    songPath + "vitesse.wav"));
             // Get a sound clip resource.
             clip = AudioSystem.getClip();
             // Open audio clip and load samples from the audio input stream.
@@ -161,7 +170,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
                 isGameOver = true; // Le jeu est terminé
                 try {
                     AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(
-                            "./song/accident.wav"));
+                            songPath + "accident.wav"));
                     // Get a sound clip resource.
                     Clip clipAccident = AudioSystem.getClip();
                     // Open audio clip and load samples from the audio input stream.

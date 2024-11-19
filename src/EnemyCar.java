@@ -8,8 +8,9 @@ public class EnemyCar {
     private int x, y;
     private int speed;
     private int speedAcc = 0;
-    private int id;
     private Image enemyCarImage;
+    String osName = System.getProperty("os.name").toLowerCase();
+    public String imgPath;
 
     /**
      * Definit les voiture enemy
@@ -18,11 +19,10 @@ public class EnemyCar {
      * @param speed
      * @param id
      */
-    public EnemyCar(int x, int y, int speed, int id) {
+    public EnemyCar(int x, int y, int speed) {
         this.x = x;
         this.y = y;
         this.speed = speed;
-        this.id = id;
     }
 
     /**
@@ -35,7 +35,6 @@ public class EnemyCar {
         if (y > 600) { // Réapparaît en haut de l'écran
         	this.speedAcc += 1;
         	this.speed += this.speedAcc/10;
-        	System.out.println("Speed : " + this.speedAcc + " id : "+ id);
             y = -100;
             x = 10 + (int) (Math.random() * 700); // Nouvelle position horizontale aléatoire
         }
@@ -46,8 +45,13 @@ public class EnemyCar {
      * @param g
      */
     public void draw(Graphics g) {
+        if (osName.contains("win")) {
+            imgPath = "Voiture-Vroum-Vroum\\img\\";
+        } else {
+            imgPath = "./img/";
+        }
         try {
-            enemyCarImage = ImageIO.read(new File("./img/voiture-mechant.png"));
+            enemyCarImage = ImageIO.read(new File(imgPath +"voiture-mechant.png"));
         } catch (IOException e) {
             e.printStackTrace();
         } 
